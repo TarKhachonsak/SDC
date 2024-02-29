@@ -1,3 +1,14 @@
 <template>
-    รอหน้าจากไอ้ต้า
+    <Navbar />
+    <Background />
+    <Menu />
+    <Backgroundtwo />
+    <Howtopay />
+    <Footer />
 </template>
+
+<script>
+export default {
+  name: 'Home'
+}
+</script>

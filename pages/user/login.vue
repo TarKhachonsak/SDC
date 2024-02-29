@@ -42,7 +42,7 @@
           <div class="mt-2 mb-1"></div>
           <h3 class="mt-1 text-right">
             <a
-              href=""
+              href="forgotpassword"
               class="text-blue-500 text-xs no-underline hover:underline"
               >ลืมรหัสผ่าน?</a
             >

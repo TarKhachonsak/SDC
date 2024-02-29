@@ -5,9 +5,7 @@
     <div class="grid gap-4 grid-cols-2 h-screen bg-indigo-100">
       <div class="">space</div>
       <div class="h-auto w-auto px-[50px] pt-[110px] items-center">
-        <div
-          class="border-box p-4 bg-slate-50 rounded shadow-lg grid gap-4 grid-cols-2"
-        >
+        <div class="border-box p-4 bg-slate-50 rounded shadow-lg">
           <h2 class="text-center text-2xl font-bold mb-4 col-span-2">
             สร้างบัญชีผู้ใช้งาน
           </h2>
@@ -66,22 +64,21 @@
             </span>
           </label>
           <label for="password" class="col-start-1 col-end-2">
-            <span>สร้างรหัสผ่าน</span>
+            <span>สร้างรหัสผ่าน </span>
             <input
               type="password"
               name="password"
               id="password"
               v-model="password"
               placeholder=""
-              class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
-              required
-              pattern=".{8,}"
+              class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6"
+              @input="checkPasswordLength"
             />
-            <span
-              class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
-            >
-              รหัสผ่านควรมีอย่างน้อย 8 ตัว
-            </span>
+            <div>
+              <span v-if="showAdvice" class="text-red-500"
+                >กรุณาใส่รหัสผ่านที่มีความยาวอย่างน้อย 8 ตัว</span
+              >
+            </div>
           </label>
           <label for="Cpassword" class="col-start-1 col-end-2">
             <span>ยืนยันรหัสผ่าน</span>
@@ -130,8 +127,6 @@
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators';
-
 export default {
   data() {
     return {
@@ -142,14 +137,17 @@ export default {
       name: "",
       surname: "",
       email: "",
+      showAdvice: true,
     };
   },
   computed: {
     isFormInvalid() {
       const isField1Invalid = !this.isValidEmail(this.email);
       const isField2Invalid = this.password.length < 7;
-      const isField3Invalid = this.name.length < 1;
-      const isField4Invalid = this.surname.length < 1;
+      const isField3Invalid =
+        !this.isValidName(this.name) || this.name.length < 1;
+      const isField4Invalid =
+        !this.isValidSurname(this.surname) || this.name.length < 1;
       const isField5Invalid = this.Cpassword.length < 7;
       const isFieldsMatch = this.password === this.CPassword;
 
@@ -176,7 +174,7 @@ export default {
       if (this.password !== this.Cpassword) {
         alert("รหัสผ่านที่ยืนยันไม่ตรงกัน");
         return;
-      }else {
+      } else {
         console.log("รหัสผ่านถูกต้อง");
         // ถ้ามีความยาวมากกว่าหรือเท่ากับ 8 ตัว
         window.location.href = "/user/confirmR-C";
@@ -185,6 +183,17 @@ export default {
     isValidEmail(email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/;
       return emailRegex.test(email);
+    },
+    isValidName(name) {
+      const thaiPattern = /[ก-๙]/;
+      return thaiPattern.test(name);
+    },
+    isValidSurname(surname) {
+      const thaiPattern = /[ก-๙]/;
+      return thaiPattern.test(surname);
+    },
+    checkPasswordLength() {
+      this.showAdvice = this.password.length < 8;
     },
   },
 };
