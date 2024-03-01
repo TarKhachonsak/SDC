@@ -88,15 +88,10 @@
               id="Cpassword"
               v-model="Cpassword"
               placeholder=""
-              class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer"
-              required
-              pattern=".{8,}"
+              class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 "
+
             />
-            <span
-              class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
-            >
-              รหัสผ่านไม่ตรงกัน
-            </span>
+       
           </label>
           <div class="mt-2 mb-2 col-start-1 col-end-3">
             <button
@@ -148,7 +143,7 @@ export default {
         !this.isValidName(this.name) || this.name.length < 1;
       const isField4Invalid =
         !this.isValidSurname(this.surname) || this.name.length < 1;
-      const isField5Invalid = this.Cpassword.length < 7;
+      const isField5Invalid = this.Cpassword.length < 1;
       const isFieldsMatch = this.password === this.CPassword;
 
       console.log("isEmailInvalid:", isField1Invalid);

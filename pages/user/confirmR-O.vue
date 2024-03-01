@@ -31,7 +31,7 @@
 export default {
   methods: {
   submitForm() {
-    window.location.href = '/home';
+    window.location.href = '/user/login';
   }
 }
 }
